@@ -9,7 +9,7 @@ Cafe and wifi API projects
 app = Flask(__name__)
 
 ##Connect to Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/netanel.ashtam/OneDrive - 888Holdings/python_projects/api_for_cafe/cafes.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///api_for_cafe/cafes.db'
 db = SQLAlchemy()
 db.init_app(app)
 
