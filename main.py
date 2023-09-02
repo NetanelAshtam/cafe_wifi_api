@@ -3,22 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 import random
 
 '''
-Install the required packages first: 
-Open the Terminal in PyCharm (bottom left). 
-
-On Windows type:
-python -m pip install -r requirements.txt
-
-On MacOS type:
-pip3 install -r requirements.txt
-
-This will install the packages from requirements.txt for this project.
+Cafe and wifi API projects 
 '''
 
 app = Flask(__name__)
 
 ##Connect to Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///api_for_cafe/cafes.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/netanel.ashtam/OneDrive - 888Holdings/python_projects/api_for_cafe/cafes.db'
 db = SQLAlchemy()
 db.init_app(app)
 
@@ -110,6 +101,24 @@ def get_cafe_at_location():
 
 
 ## HTTP POST - Create Record
+
+@app.route("/add", methods=["POST"])
+def post_new_cafe():
+    new_cafe = Cafe(
+        name=request.form.get("name"),
+        map_url=request.form.get("map_url"),
+        img_url=request.form.get("img_url"),
+        location=request.form.get("loc"),
+        has_sockets=bool(request.form.get("sockets")),
+        has_toilet=bool(request.form.get("toilet")),
+        has_wifi=bool(request.form.get("wifi")),
+        can_take_calls=bool(request.form.get("calls")),
+        seats=request.form.get("seats"),
+        coffee_price=request.form.get("coffee_price"),
+    )
+    db.session.add(new_cafe)
+    db.session.commit()
+    return jsonify(response={"success": "Successfully added the new cafe."})
 
 ## HTTP PUT/PATCH - Update Record
 
